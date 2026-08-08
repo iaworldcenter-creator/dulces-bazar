@@ -78,7 +78,7 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         .page-content { max-width: 900px; margin: 0 auto; padding: 0 20px 46px; text-align: center; }
         .page-content p { margin: 0; color: #94a3b8; font-size: 1.08rem; line-height: 1.55; }
-        .object-tech-bazar { object-fit: cover; object-position: center; }
+        .object-tech-bazar { object-fit: cover; object-position: 75% 15%; }
         .object-tiger-bazar { object-fit: cover; object-position: center; }
         @media (max-width: 900px) {
             .desktop-nav { display: none; }
@@ -342,7 +342,7 @@
         }, 4500);
 
         // Ajustar velocidad de videos y pausar 5 segundos al finalizar
-        document.addEventListener('DOMContentLoaded', () => {
+        function initVideos() {
             const videos = document.querySelectorAll('video');
             
             const forcePlayAll = () => {
@@ -374,7 +374,13 @@
                     video.play().catch(err => console.log("Autoplay de video:", err));
                 }
             });
-        });
+        }
+
+        if (document.readyState !== 'loading') {
+            initVideos();
+        } else {
+            document.addEventListener('DOMContentLoaded', initVideos);
+        }
     </script>
 
 <!-- CONTACTO Y UBICACIÓN OFICIAL EN GUADALAJARA CENTRO -->
