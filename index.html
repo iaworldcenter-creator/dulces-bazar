@@ -116,6 +116,9 @@
     }
     </script>
 
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.png" as="image">
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden">
 <!-- BARRA LATERAL FLOTANTE DE REDES SOCIALES -->
@@ -142,7 +145,7 @@
             
             <!-- Columna central: Logo circular y Marca CENTRADOS -->
             <div class="flex flex-col items-center text-center">
-                <img src="assets/img/mascota_tigre.jpg" alt="Tigre Logo" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2">
+                <img loading="lazy" decoding="async" src="assets/img/mascota_tigre.jpg" alt="Tigre Logo" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2">
                 <span class="text-xl sm:text-2xl font-black tracking-wider text-blue-500 block leading-tight">Dulcería &amp; Botanas</span>
                 <span class="text-xs font-mono font-bold tracking-widest text-blue-400 block mt-0.5">NFL.GDL</span>
             </div>
@@ -237,7 +240,7 @@
         <div class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-1 md:order-2 bg-slate-950 border-r border-slate-800/40">
             <!-- Slide 1: Dulces Tradicionales -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-100 z-10 transition-opacity duration-700 ease-in-out group">
-                <img src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.png" alt="Dulces Tradicionales" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="eager" src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.png" alt="Dulces Tradicionales" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-blue-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Variedad Tradicional</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Dulces &amp; Antojitos Mexicanos</h2>
@@ -250,7 +253,7 @@
 
             <!-- Slide 2: Surtido Mayoreo -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img src="assets/img/91fL315hJIL._SL1500_.jpg" alt="Venta por Mayoreo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/91fL315hJIL._SL1500_.jpg" alt="Venta por Mayoreo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-orange-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Venta por Mayoreo</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Surtido para Negocios y Fiestas</h2>
@@ -263,7 +266,7 @@
 
             <!-- Slide 3: Dulces Importados -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img src="assets/img/duty_free_quito.webp" alt="Chocolates & Dulces Finos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/duty_free_quito.webp" alt="Chocolates & Dulces Finos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-slate-300 font-mono text-xs uppercase font-bold tracking-widest mb-3">Importados &amp; Especiales</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Chocolates &amp; Dulces Finos</h2>
@@ -276,7 +279,7 @@
 
             <!-- Slide 4: Botanas y Frituras -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img src="assets/img/image.webp" alt="Botanas & Frituras" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/image.webp" alt="Botanas & Frituras" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-indigo-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Botanas &amp; Frituras</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Botanas Saladas y Enchiladas</h2>
@@ -289,7 +292,7 @@
 
             <!-- Slide 5: Kiosco de Antojos -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img src="assets/img/resize_1519408781.jpg" alt="Kiosco de Antojos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/resize_1519408781.jpg" alt="Kiosco de Antojos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-red-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Kiosco de Antojos</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">El Punto Ideal del Sabor</h2>
@@ -351,6 +354,25 @@
         const centerDots = document.querySelectorAll('.c-dot');
         let centerInterval;
 
+        
+        // ENRUTADOR DE SECCIÓN POR HASH (DEEP LINKING)
+        function applyHashRouting() {
+            const hash = window.location.hash;
+            if (hash) {
+                const cleanHash = decodeURIComponent(hash.substring(1)).toLowerCase();
+                const slideMap = {'dulces-tradicionales': 0, 'dulces': 0, 'botanas-frituras': 1, 'botanas': 1, 'chocolates': 2, 'gomitas': 3, 'bebidas': 4};
+                if (slideMap[cleanHash] !== undefined) {
+                    setCenterSlide(slideMap[cleanHash]);
+                    const carouselSec = document.querySelector('.relative.overflow-hidden.w-full.h-\\[380px\\]') || document.querySelector('.relative.overflow-hidden.w-full.h-\\[600px\\]') || document.getElementById('hero-slider');
+                    if (carouselSec) {
+                        carouselSec.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        }
+        window.addEventListener('load', applyHashRouting);
+        window.addEventListener('hashchange', applyHashRouting);
+            
         function setCenterSlide(index) {
             // Ocultar diapositiva actual
             centerSlides[currentCenterSlide].classList.remove('opacity-100', 'z-10');
@@ -575,6 +597,15 @@
         function handleChatKeyPress(e) {
             if (e.key === 'Enter') enviarMensajeChatbot();
         }
+    </script>
+
+
+    <!-- Quicklink Prefetching for <100ms Transitions -->
+    <script type="module">
+        import { listen } from 'https://unpkg.com/quicklink@2.3.0/dist/quicklink.mjs';
+        window.addEventListener('load', () => {
+            listen({ priority: true });
+        });
     </script>
 
 </body>
