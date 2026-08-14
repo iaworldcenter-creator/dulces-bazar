@@ -100,7 +100,7 @@
     <!-- Open Graph para Applebot, Siri, Spotlight, Facebook, Discord -->
     <meta property="og:title" content="Dulcería &amp; Botanas NFL.GDL | Puesto de Revistas &amp; Bazar" />
     <meta property="og:description" content="Variedad de dulces tradicionales, chocolates, pastillas de menta y botanas." />
-    <meta property="og:image" content="https://iaworldcenter-creator.github.io/dulces-bazar/assets/img/portadas/science_cover.jpg" />
+    <meta property="og:image" content="https://iaworldcenter-creator.github.io/dulces-bazar/assets/img/portadas/science_cover.webp" />
     <meta property="og:url" content="https://iaworldcenter-creator.github.io/dulces-bazar/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Puesto de Revistas &amp; Bazar" />
@@ -118,7 +118,14 @@
 
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.png" as="image">
+    <link rel="preload" href="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp" as="image">
+
+    <style>
+        @media (max-width: 768px) {
+            video { display: none !important; }
+            .mobile-video-fallback { display: block !important; }
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden">
 <!-- BARRA LATERAL FLOTANTE DE REDES SOCIALES -->
@@ -145,7 +152,7 @@
             
             <!-- Columna central: Logo circular y Marca CENTRADOS -->
             <div class="flex flex-col items-center text-center">
-                <img loading="lazy" decoding="async" src="assets/img/mascota_tigre.jpg" alt="Tigre Logo" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2">
+                <img loading="lazy" decoding="async" src="assets/img/mascota_tigre.webp" alt="Tigre Logo" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2">
                 <span class="text-xl sm:text-2xl font-black tracking-wider text-blue-500 block leading-tight">Dulcería &amp; Botanas</span>
                 <span class="text-xs font-mono font-bold tracking-widest text-blue-400 block mt-0.5">NFL.GDL</span>
             </div>
@@ -220,6 +227,7 @@
         <!-- Panel Izquierdo: Video de loop de Tigre -->
         <a href="https://wa.me/523337271440?text=Hola,%20busco%20surtido%20de%20dulces%20y%20botanas." target="_blank" rel="noopener noreferrer" class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-2 md:order-1 group block cursor-pointer border-r border-slate-800/40">
             <video autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none">
+            <img loading="lazy" src="assets/img/video-1786211754680.webp" class="absolute inset-0 w-full h-full object-cover mobile-video-fallback hidden" style="display: none;" alt="Mobile cover placeholder">
                 <source src="assets/img/video-1786211754680.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
@@ -240,7 +248,7 @@
         <div class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-1 md:order-2 bg-slate-950 border-r border-slate-800/40">
             <!-- Slide 1: Dulces Tradicionales -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-100 z-10 transition-opacity duration-700 ease-in-out group">
-                <img loading="eager" src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.png" alt="Dulces Tradicionales" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="eager" src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp" alt="Dulces Tradicionales" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-blue-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Variedad Tradicional</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Dulces &amp; Antojitos Mexicanos</h2>
@@ -253,7 +261,7 @@
 
             <!-- Slide 2: Surtido Mayoreo -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img loading="lazy" decoding="async" src="assets/img/91fL315hJIL._SL1500_.jpg" alt="Venta por Mayoreo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/91fL315hJIL._SL1500_.webp" alt="Venta por Mayoreo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-orange-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Venta por Mayoreo</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Surtido para Negocios y Fiestas</h2>
@@ -292,7 +300,7 @@
 
             <!-- Slide 5: Kiosco de Antojos -->
             <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-0 z-0 transition-opacity duration-700 ease-in-out group">
-                <img loading="lazy" decoding="async" src="assets/img/resize_1519408781.jpg" alt="Kiosco de Antojos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img loading="lazy" decoding="async" src="assets/img/resize_1519408781.webp" alt="Kiosco de Antojos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
                     <span class="text-red-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Kiosco de Antojos</span>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">El Punto Ideal del Sabor</h2>
@@ -324,6 +332,7 @@
         <!-- Panel Derecho: Creado con Google Gemini y Anti-Gravity (Tigre comiendo paleta en el parque) -->
         <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-3 md:order-3 group block cursor-pointer">
             <video autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none">
+            <img loading="lazy" src="assets/img/Tiger_eating_lollipop_in_park_202608081145.webp" class="absolute inset-0 w-full h-full object-cover mobile-video-fallback hidden" style="display: none;" alt="Mobile cover placeholder">
                 <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
