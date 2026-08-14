@@ -2,6 +2,40 @@
 
 <html lang="es">
 <head>
+<style id="critical-css">
+          body { background-color: #020617; color: #f8fafc; font-family: ui-sans-serif, system-ui, sans-serif; }
+          header { height: 64px; }
+          .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        </style>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered successfully'))
+      .catch(err => console.log('Service Worker registration failed:', err));
+  });
+}
+
+    // Dynamic video loading for desktop only to save 6MB on mobile
+    if (window.innerWidth > 768) {
+        const vl = document.getElementById("video-container-left");
+        if (vl) {
+            vl.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar pointer-events-none">
+                <source src="assets/img/video-1786211754680.mp4" type="video/mp4" />
+            </video>`;
+        }
+        const vr = document.getElementById("video-container-right");
+        if (vr) {
+            vr.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar pointer-events-none">
+                <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4" />
+            </video>`;
+        }
+    }
+            
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="BwSy5nNuFFrHJUtxe189nJtPxM4h5QY-SxK1V8wqYDE" name="google-site-verification">
@@ -94,8 +128,8 @@
     
         #chatbot-window { height: 520px; max-height: 85vh; }
 </style>
-<link href="assets/css/tailwind-built.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="assets/css/tailwind-built.css?v=1.0.2" rel="stylesheet" />
+
 <!-- Open Graph para Applebot, Siri, Spotlight, Facebook, Discord -->
 <meta content="Dulcería &amp; Botanas NFL.GDL | Puesto de Revistas &amp; Bazar" property="og:title">
 <meta content="Variedad de dulces tradicionales, chocolates, pastillas de menta y botanas." property="og:description"/>
@@ -105,7 +139,7 @@
 <meta content="Puesto de Revistas &amp; Bazar" property="og:site_name"/>
 <!-- Datos estructurados de Schema.org para Google, Bing y Apple Search -->
 
-<link as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+
 <link as="image" href="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp" rel="preload"/>
 <style>
         @media (max-width: 768px) {
@@ -117,7 +151,7 @@
   "@context": "https://schema.org",
   "@type": "CandyStore",
   "name": "Bazar de Dulces",
-  "image": "https://iaworldcenter-creator.github.io/dulces-bazar/assets/img/mascota_tigre.webp",
+  "image": "https://iaworldcenter-creator.github.io/dulces-bazar/assets/img/mascota_tigre_thumb.webp?v=1.0.2",
   "telephone": "+52 33 3727 1440",
   "url": "https://iaworldcenter-creator.github.io/dulces-bazar/",
   "address": {
@@ -128,7 +162,26 @@
     "postalCode": "44100",
     "addressCountry": "MX"
   }
-}</script></head>
+}
+    // Dynamic video loading for desktop only to save 6MB on mobile
+    if (window.innerWidth > 768) {
+        const vl = document.getElementById("video-container-left");
+        if (vl) {
+            vl.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar pointer-events-none">
+                <source src="assets/img/video-1786211754680.mp4" type="video/mp4" />
+            </video>`;
+        }
+        const vr = document.getElementById("video-container-right");
+        if (vr) {
+            vr.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar pointer-events-none">
+                <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4" />
+            </video>`;
+        }
+    }
+            
+</script><link rel="preload" href="assets/css/fontawesome-all.min.css?v=1.0.2" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link href="assets/css/fontawesome-all.min.css?v=1.0.2" rel="stylesheet" /></noscript>
+</head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden">
 <!-- BARRA LATERAL FLOTANTE DE REDES SOCIALES -->
 <div class="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 bg-slate-950/80 backdrop-blur-md border-y border-r border-slate-800 p-2.5 rounded-r-2xl shadow-2xl">
@@ -152,7 +205,7 @@
 <div class="hidden md:block"></div>
 <!-- Columna central: Logo circular y Marca CENTRADOS -->
 <div class="flex flex-col items-center text-center">
-<img alt="Mascota oficial Tigre inteligente de Bazar de Dulces en Guadalajara" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2" decoding="async" loading="lazy" src="assets/img/mascota_tigre.webp"/>
+<img alt="Mascota oficial Tigre inteligente de Bazar de Dulces en Guadalajara" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 shadow-md shadow-blue-500/30 mb-2" decoding="async" loading="lazy" src="assets/img/mascota_tigre_thumb.webp?v=1.0.2"/>
 <span class="text-xl sm:text-2xl font-black tracking-wider text-blue-500 block leading-tight">Dulcería &amp; Botanas</span>
 <span class="text-xs font-mono font-bold tracking-widest text-blue-400 block mt-0.5">NFL.GDL</span>
 </div>
@@ -223,10 +276,9 @@
 <section aria-label="Catálogo de Dulcería" class="w-full grid grid-cols-1 md:grid-cols-[30%_40%_30%] gap-0 relative overflow-hidden bg-slate-950 text-white">
 <!-- Panel Izquierdo: Video de loop de Tigre -->
 <a class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-2 md:order-1 group block cursor-pointer border-r border-slate-800/40" href="https://wa.me/523337271440?text=Hola,%20busco%20surtido%20de%20dulces%20y%20botanas." rel="noopener noreferrer" target="_blank">
-<video autoplay="" class="absolute inset-0 w-full h-full object-cover object-tech-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none" muted="" playsinline="">
-<img alt="Imagen ilustrativa de producto de Bazar de Dulces" class="absolute inset-0 w-full h-full object-cover mobile-video-fallback hidden" loading="lazy" src="assets/img/video-1786211754680.webp" style="display: none;"/>
-<source src="assets/img/video-1786211754680.mp4" type="video/mp4"/>
-</video>
+<div class="absolute inset-0 w-full h-full object-cover object-tech-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none overflow-hidden" id="video-container-left">
+    <img src="assets/img/video-1786211754680_thumb.webp?v=1.0.2" alt="Bazar de Dulces" class="w-full h-full object-cover" loading="lazy" width="300" height="168" />
+</div>
 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
 <span class="text-amber-400 font-mono text-[10px] uppercase font-bold tracking-widest mb-2 block">Antojo al Instante</span>
 <h2 class="text-base sm:text-lg md:text-xl font-black mb-2 leading-tight text-white drop-shadow-md">
@@ -320,10 +372,9 @@
 </div>
 <!-- Panel Derecho: Creado con Google Gemini y Anti-Gravity (Tigre comiendo paleta en el parque) -->
 <a class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-3 md:order-3 group block cursor-pointer" href="https://gemini.google.com" rel="noopener noreferrer" target="_blank">
-<video autoplay="" class="absolute inset-0 w-full h-full object-cover object-tiger-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none" muted="" playsinline="">
-<img alt="Imagen ilustrativa de producto de Bazar de Dulces" class="absolute inset-0 w-full h-full object-cover mobile-video-fallback hidden" loading="lazy" src="assets/img/Tiger_eating_lollipop_in_park_202608081145.webp" style="display: none;"/>
-<source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4"/>
-</video>
+<div class="absolute inset-0 w-full h-full object-cover object-tiger-bazar transition-transform duration-[1200ms] ease-out group-hover:scale-105 pointer-events-none overflow-hidden" id="video-container-right">
+    <img src="assets/img/Tiger_eating_lollipop_in_park_202608081145_thumb.webp?v=1.0.2" alt="Bazar de Dulces" class="w-full h-full object-cover" loading="lazy" width="300" height="168" />
+</div>
 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
 <span class="text-sky-400 font-mono text-[10px] uppercase font-bold tracking-widest mb-2 block">Inteligencia Artificial</span>
 <h2 class="text-base sm:text-lg md:text-xl font-black mb-2 leading-tight text-white drop-shadow-md">
@@ -451,7 +502,24 @@
         } else {
             document.addEventListener('DOMContentLoaded', initVideos);
         }
-    </script>
+    
+    // Dynamic video loading for desktop only to save 6MB on mobile
+    if (window.innerWidth > 768) {
+        const vl = document.getElementById("video-container-left");
+        if (vl) {
+            vl.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar pointer-events-none">
+                <source src="assets/img/video-1786211754680.mp4" type="video/mp4" />
+            </video>`;
+        }
+        const vr = document.getElementById("video-container-right");
+        if (vr) {
+            vr.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar pointer-events-none">
+                <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4" />
+            </video>`;
+        }
+    }
+            
+</script>
 <!-- CONTACTO Y UBICACIÓN OFICIAL EN GUADALAJARA CENTRO -->
 <section class="py-20 bg-slate-950 border-t border-slate-800 text-slate-100" id="contacto">
 <div class="max-w-5xl mx-auto px-4 sm:px-6"><div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden"><div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -584,13 +652,47 @@
         function handleChatKeyPress(e) {
             if (e.key === 'Enter') enviarMensajeChatbot();
         }
-    </script>
+    
+    // Dynamic video loading for desktop only to save 6MB on mobile
+    if (window.innerWidth > 768) {
+        const vl = document.getElementById("video-container-left");
+        if (vl) {
+            vl.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar pointer-events-none">
+                <source src="assets/img/video-1786211754680.mp4" type="video/mp4" />
+            </video>`;
+        }
+        const vr = document.getElementById("video-container-right");
+        if (vr) {
+            vr.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar pointer-events-none">
+                <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4" />
+            </video>`;
+        }
+    }
+            
+</script>
 <!-- Quicklink Prefetching for <100ms Transitions -->
 <script type="module">
         import { listen } from 'https://unpkg.com/quicklink@2.3.0/dist/quicklink.mjs';
         window.addEventListener('load', () => {
             listen({ priority: true });
         });
-    </script>
+    
+    // Dynamic video loading for desktop only to save 6MB on mobile
+    if (window.innerWidth > 768) {
+        const vl = document.getElementById("video-container-left");
+        if (vl) {
+            vl.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tech-bazar pointer-events-none">
+                <source src="assets/img/video-1786211754680.mp4" type="video/mp4" />
+            </video>`;
+        }
+        const vr = document.getElementById("video-container-right");
+        if (vr) {
+            vr.innerHTML = `<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover object-tiger-bazar pointer-events-none">
+                <source src="assets/img/Tiger_eating_lollipop_in_park_202608081145.mp4" type="video/mp4" />
+            </video>`;
+        }
+    }
+            
+</script>
 </body>
 </html>
