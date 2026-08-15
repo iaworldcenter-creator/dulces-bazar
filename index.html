@@ -394,64 +394,14 @@
 
     <!-- Col 2-3: Sidebar de Navegación, Filtros y Descripción (8 Columnas Layout) -->
     <aside class="col-span-8 lg:col-span-1 w-full bg-slate-950/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl sticky lg:top-24 top-16 z-30 self-start flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-4 lg:gap-6 scrollbar-none items-center lg:items-stretch whitespace-normal">
-      <!-- Encabezado del Sidebar (Visible en Desktop) -->
-      <div class="hidden lg:block border-b border-slate-800 pb-3">
-        <h3 class="text-sm font-black text-white flex items-center gap-2">
-          <i class="fa-solid fa-store text-blue-500"></i> Departamentos
-        </h3>
-        <p class="text-[9px] text-slate-500 mt-1 leading-relaxed">
-          Navega por las 10 categorías de nuestro bazar. 200 productos en total.
-        </p>
-      </div>
-      
-      <!-- Contenedor general de categorías -->
-      <div class="flex flex-row lg:flex-col gap-4 lg:gap-6 items-center lg:items-stretch w-full lg:w-auto">
-          <!-- Lectura & Prensa -->
-          <div class="flex flex-col gap-1.5 shrink-0">
-              <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-book-open"></i> <span class="hidden lg:inline">Lectura & Prensa</span></h4>
-              <ul class="flex flex-row lg:flex-col gap-1.5 lg:space-y-1 lg:gap-0 pl-0 lg:pl-2">
-                  <li><button onclick="changePage(4, document.querySelectorAll('.pagination-btn')[3])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Revistas Físicas</button></li>
-                  <li><button onclick="changePage(5, document.querySelectorAll('.pagination-btn')[4])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Periódicos y Prensa</button></li>
-                  <li><button onclick="changePage(6, document.querySelectorAll('.pagination-btn')[5])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Ediciones Digitales</button></li>
+              <div class="flex-col gap-1.5 hidden lg:flex">
+                <span class="text-amber-500 font-mono text-[9px] uppercase font-bold tracking-widest">Men? Dulcer?a</span>
+                <h3 class="text-[11px] font-black text-white uppercase tracking-wider">Antojos & Botanas</h3>
+              </div>
+              <ul class="flex flex-row lg:flex-col gap-2.5 lg:gap-2.5 w-full shrink-0 lg:shrink list-none p-0 m-0">
+                  <li><button onclick="changePage(1, document.querySelectorAll('.pagination-btn')[0])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Dulces y Chocolates</button></li>
+                  <li><button onclick="changePage(2, document.querySelectorAll('.pagination-btn')[1])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Botanas y Snacks</button></li>
               </ul>
-          </div>
-          
-          <!-- Bazar & Gadgets -->
-          <div class="flex flex-col gap-1.5 shrink-0">
-              <h4 class="text-xs font-bold text-pink-400 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-boxes-stacked"></i> <span class="hidden lg:inline">Bazar & Accesorios</span></h4>
-              <ul class="flex flex-row lg:flex-col gap-1.5 lg:space-y-1 lg:gap-0 pl-0 lg:pl-2">
-                  <li><button onclick="changePage(1, document.querySelectorAll('.pagination-btn')[0])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Electrónica & Gadgets</button></li>
-                  <li><button onclick="changePage(2, document.querySelectorAll('.pagination-btn')[1])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Cables y Accesorios</button></li>
-                  <li><button onclick="changePage(3, document.querySelectorAll('.pagination-btn')[2])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Audio y Bocinas</button></li>
-                  <li><button onclick="changePage(7, document.querySelectorAll('.pagination-btn')[6])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Dulces y Chocolates</button></li>
-                  <li><button onclick="changePage(8, document.querySelectorAll('.pagination-btn')[7])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Botanas y Snacks</button></li>
-                  <li><button onclick="changePage(9, document.querySelectorAll('.pagination-btn')[8])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Cigarros y Tabaco</button></li>
-                  <li><button onclick="changePage(10, document.querySelectorAll('.pagination-btn')[9])" class="text-left text-xs text-slate-300 hover:text-blue-400 transition cursor-pointer flex items-center gap-1.5 py-1 w-full"><i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i> Bazar y Novedades</button></li>
-              </ul>
-          </div>
-      </div>
-      
-      <!-- Bloque de Información de Revistas (Visible en Desktop) -->
-      <div class="hidden lg:block border-t border-slate-800 pt-4 mt-2">
-        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Clasificaciones de Revistas</h4>
-        <div class="space-y-2.5 text-[10px] text-slate-400 leading-normal">
-          <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
-            <span class="font-bold text-white block">Divulgación Científica</span>
-            <span class="text-slate-500">National Geographic, Muy Interesante. Temas de ciencia, naturaleza e historia.</span>
-          </div>
-          <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
-            <span class="font-bold text-white block">Crecimiento Personal</span>
-            <span class="text-slate-500">Clasificación Padres e Hijos, revistas de crianza, desarrollo y bienestar familiar.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total de Inventario -->
-      <div class="hidden lg:block border-t border-slate-800 pt-3 mt-auto shrink-0">
-        <span class="text-[9px] font-mono text-slate-600 block uppercase tracking-wider">Inventario Total</span>
-        <span class="text-xs font-mono font-bold text-amber-500" id="total-inventory-badge">200 productos</span>
-        <span class="text-[9px] text-slate-500 block">10 páginas • 20 por página</span>
-      </div>
 </aside>
 
     <!-- Col 4-8: Cuadrícula de Productos -->
@@ -519,14 +469,6 @@
       <div class="mt-12 flex justify-center items-center gap-2 flex-wrap" id="pagination-container">
         <button onclick="changePage(1, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-blue-600 border border-blue-500 text-white font-bold text-sm shadow-md shadow-blue-600/30 cursor-pointer transition active:scale-95">Página 1</button>
         <button onclick="changePage(2, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 2</button>
-        <button onclick="changePage(3, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 3</button>
-        <button onclick="changePage(4, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 4</button>
-        <button onclick="changePage(5, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 5</button>
-        <button onclick="changePage(6, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 6</button>
-        <button onclick="changePage(7, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 7</button>
-        <button onclick="changePage(8, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 8</button>
-        <button onclick="changePage(9, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 9</button>
-        <button onclick="changePage(10, this)" class="pagination-btn px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition font-bold text-sm shadow-md cursor-pointer active:scale-95">Página 10</button>
       </div>
       <div class="text-center mt-4 text-xs text-slate-500 font-mono" id="pagination-status">
         Mostrando página 1 de 4 • Electrónica &amp; Gadgets
@@ -3647,49 +3589,21 @@
         }
 ];
 
-    let currentPage = 7;
+    let currentPage = 1;
     const PRODUCTS_PER_PAGE = 20;
     const totalPages = 4;
 
     const PAGE_TO_CATEGORY = {
-    1: 'gadgets',
-    2: 'cables',
-    3: 'audio',
-    4: 'revistas',
-    5: 'periodicos',
-    6: 'digitales',
-    7: 'dulces',
-    8: 'botanas',
-    9: 'cigarros',
-    10: 'bazar'
+    1: "dulces",
+    2: "botanas"
 };
-
 const CATEGORY_TO_PAGE = {
-    'todos': 1,
-    'gadgets': 1,
-    'cables': 2,
-    'audio': 3,
-    'revistas': 4,
-    'periodicos': 5,
-    'digitales': 6,
-    'dulces': 7,
-    'botanas': 8,
-    'cigarros': 9,
-    'bazar': 10
+    "dulces": 1,
+    "botanas": 2
 };
-
 const CATEGORY_NAMES = {
-    'todos': 'Todos los Productos',
-    'gadgets': 'Electrónica & Gadgets',
-    'cables': 'Cables y Accesorios',
-    'audio': 'Audio y Bocinas',
-    'revistas': 'Revistas Físicas',
-    'periodicos': 'Periódicos y Prensa',
-    'digitales': 'Publicaciones Digitales',
-    'dulces': 'Dulces y Chocolates',
-    'botanas': 'Botanas y Snacks',
-    'cigarros': 'Cigarros y Tabaco',
-    'bazar': 'Bazar y Novedades'
+    "dulces": "Dulces y Chocolates",
+    "botanas": "Botanas y Snacks"
 };
 
     // Control de Dirección de Entrega (Modal & Cabecera)
@@ -3854,7 +3768,7 @@ const CATEGORY_NAMES = {
         }
 
         if (statusEl) {
-            statusEl.textContent = `Mostrando página ${currentPage} de 10 • ${CATEGORY_NAMES[currentCategory]} (${pageProducts.length} productos)`;
+            statusEl.textContent = `Mostrando p?gina ${currentPage} de 2 • ${CATEGORY_NAMES[currentCategory]} (${pageProducts.length} productos)`;
         }
 
         if (pageProducts.length === 0) {
