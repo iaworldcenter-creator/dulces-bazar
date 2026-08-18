@@ -280,8 +280,163 @@ if ('serviceWorker' in navigator) {
 
 
 <main class="flex-grow py-8 px-4 md:px-12 bg-slate-950 text-slate-100">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="product-detail-root">
-        <div class="col-span-full py-12 text-center text-slate-500 font-bold">Cargando detalles del producto...</div>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Lado Izquierdo: Formularios Pasos 1 y 2 (Colapsables) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- SECCIÓN 1: Domicilio de Entrega -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-md transition-all duration-300" id="step-delivery-card">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-black text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs font-black">1</span>
+                        Domicilio de Entrega (Registro Obligatorio)
+                    </h2>
+                    <button onclick="editDelivery()" id="delivery-edit-btn" class="hidden text-xs text-cyan-400 hover:underline font-bold focus:outline-none">Editar</button>
+                </div>
+                
+                <!-- Formulario -->
+                <form id="delivery-form" onsubmit="saveDelivery(event)" class="flex flex-col gap-3">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Nombre Completo</label>
+                        <input type="text" id="devName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Teléfono (10 dígitos)</label>
+                            <input type="tel" id="devPhone" required pattern="[0-9]{10}" placeholder="Ej: 3337271440" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Correo Electrónico</label>
+                            <input type="email" id="devEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Calle y Número</label>
+                        <input type="text" id="devStreet" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="col-span-2">
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Colonia</label>
+                            <input type="text" id="devColonia" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Código Postal</label>
+                            <input type="text" id="devCp" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Ciudad / Estado</label>
+                        <input type="text" id="devCity" required value="Guadalajara, Jalisco" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-wider transition mt-2 cursor-pointer">Guardar Datos de Entrega</button>
+                </form>
+                
+                <!-- Resumen Colapsado -->
+                <div id="delivery-summary" class="hidden flex flex-col gap-1.5 text-xs text-slate-300">
+                    <div class="font-bold text-white" id="sum-name"></div>
+                    <div id="sum-phone-email"></div>
+                    <div id="sum-address"></div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: Método de Pago -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-md transition-all duration-300 opacity-60" id="step-payment-card">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-black text-white flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-xs font-black" id="step-payment-badge">2</span>
+                        Método de Pago
+                    </h2>
+                    <button onclick="editPayment()" id="payment-edit-btn" class="hidden text-xs text-cyan-400 hover:underline font-bold focus:outline-none">Editar</button>
+                </div>
+                
+                <!-- Selectores de pago -->
+                <div id="payment-options" class="hidden flex-col gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="selectPaymentMethod('Efectivo')" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-500 transition cursor-pointer active:scale-95">
+                            <i class="fa-solid fa-money-bill-1 text-emerald-400 text-2xl"></i>
+                            <span class="text-xs font-bold text-white">Efectivo / OXXO / Depósito</span>
+                        </button>
+                        <button onclick="toggleCardForm()" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-500 transition cursor-pointer active:scale-95">
+                            <i class="fa-solid fa-credit-card text-cyan-400 text-2xl"></i>
+                            <span class="text-xs font-bold text-white">Tarjeta de Crédito / Débito</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Tarjeta Formulario -->
+                    <form id="card-payment-form" onsubmit="saveCardDetails(event)" class="hidden border-t border-slate-800 pt-4 flex flex-col gap-3">
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Nombre en la Tarjeta</label>
+                            <input type="text" id="cardName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Número de Tarjeta</label>
+                            <input type="text" id="cardNum" placeholder="4152 ...." required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Vencimiento</label>
+                                <input type="text" id="cardExp" placeholder="MM/AA" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">CVV</label>
+                                <input type="text" id="cardCvv2" placeholder="123" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer">Registrar Tarjeta</button>
+                    </form>
+                </div>
+                
+                <!-- Resumen Pago -->
+                <div id="payment-summary" class="hidden text-xs text-emerald-400 font-bold"></div>
+            </div>
+        </div>
+        
+        <!-- Lado Derecho: Carrito y Resumen de Totales (Pasos 3) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-md flex flex-col gap-5 text-slate-100">
+            <h2 class="text-base font-black text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs font-black">3</span>
+                Revisión e Importes
+            </h2>
+            
+            <!-- Lista de productos -->
+            <div class="flex flex-col gap-3 overflow-y-auto max-h-[30vh] pr-1" id="checkout-cart-items">
+                <!-- Dinámico -->
+            </div>
+            
+            <!-- Totales -->
+            <div class="border-t border-slate-800 pt-4 flex flex-col gap-2.5 text-xs text-slate-300">
+                <div class="flex justify-between">
+                    <span>Subtotal de Artículos:</span>
+                    <span class="font-bold text-white" id="co-subtotal">$0.00 MXN</span>
+                </div>
+                <div class="flex justify-between hidden" id="co-wholesale-row">
+                    <span class="text-amber-500 font-bold">Descuento de Mayoreo (15%):</span>
+                    <span class="text-amber-500 font-bold" id="co-wholesale-disc">-$0.00 MXN</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Gastos de Envío Local:</span>
+                    <span class="font-bold text-white" id="co-shipping">$0.00 MXN</span>
+                </div>
+                <div class="flex flex-col gap-1 border-t border-slate-850 pt-2.5 mt-1" id="co-cashback-row">
+                    <!-- Dinámico -->
+                </div>
+                <div class="flex justify-between items-center border-t border-slate-800 pt-3 mt-1">
+                    <span class="text-sm font-black text-white uppercase tracking-wider">Total a Pagar:</span>
+                    <span class="text-xl font-black text-cyan-400" id="co-total">$0.00 MXN</span>
+                </div>
+            </div>
+            
+            <!-- Botones de Acción -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                <button onclick="window.location.href='index.html'" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl text-xs transition cursor-pointer flex items-center justify-center gap-1.5 active:scale-95">
+                    <i class="fa-solid fa-arrow-left"></i> Seguir comprando
+                </button>
+                <button onclick="finalizePurchase()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-1.5 active:scale-95 shadow-md shadow-amber-500/10">
+                    Confirmar Compra <i class="fa-solid fa-circle-check"></i>
+                </button>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -306,112 +461,6 @@ if ('serviceWorker' in navigator) {
 <p>© 2026 Puesto de Revistas &amp; Bazar NFL.GDL. Pedro Moreno 501 A, Guadalajara Centro. Todos los derechos reservados.</p>
 </footer>
 
-<!-- DELIVERY ADDRESS MODAL (GLASSMORPHISM) -->
-<div class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-slate-950/80 px-4" id="deliveryModal">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative text-slate-100">
-        <h2 class="text-lg font-black text-white mb-2 flex items-center gap-2">
-            <i class="fa-solid fa-map-location-dot text-cyan-400"></i> Registrar Domicilio de Entrega
-        </h2>
-        <p class="text-[11px] text-slate-400 mb-4 leading-relaxed">
-            ⚠️ <strong>Nota:</strong> Servicio disponible únicamente a no más de <strong>5 km de distancia</strong> de nuestra sucursal Centro.
-        </p>
-        <form onsubmit="saveDeliveryAddress(event)" class="flex flex-col gap-3">
-            <div>
-                <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Nombre Completo</label>
-                <input type="text" id="deliveryName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Teléfono</label>
-                    <input type="tel" id="deliveryPhone" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Correo Electrónico</label>
-                    <input type="email" id="deliveryEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-                </div>
-            </div>
-            <div>
-                <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Calle y Número</label>
-                <input type="text" id="deliveryStreet" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Colonia</label>
-                    <input type="text" id="deliveryColonia" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Ciudad / Estado</label>
-                    <input type="text" id="deliveryCity" required value="Guadalajara, Jalisco" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
-                </div>
-            </div>
-            <div class="flex justify-end gap-2.5 mt-2">
-                <button type="button" onclick="closeDeliveryModal()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition cursor-pointer">Cancelar</button>
-                <button type="submit" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-5 py-2 rounded-xl text-xs transition cursor-pointer">Registrar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- PAYMENT METHOD MODAL -->
-<div class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-slate-950/80 px-4" id="paymentMethodModal">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative text-slate-100 flex flex-col gap-4">
-        <h2 class="text-lg font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-credit-card text-cyan-400"></i> Registrar Forma de Pago
-        </h2>
-        <div class="grid grid-cols-2 gap-3">
-            <button onclick="savePaymentMethod('Efectivo')" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-400 transition cursor-pointer">
-                <i class="fa-solid fa-money-bill-1 text-emerald-400 text-2xl"></i>
-                <span class="text-xs font-bold">Efectivo local</span>
-            </button>
-            <button onclick="savePaymentMethod('Kueski')" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-400 transition cursor-pointer">
-                <i class="fa-solid fa-bolt text-amber-400 text-2xl"></i>
-                <span class="text-xs font-bold">Kueski Pay</span>
-            </button>
-            <button onclick="savePaymentMethod('Transferencia')" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-400 transition cursor-pointer">
-                <i class="fa-solid fa-building-columns text-blue-400 text-2xl"></i>
-                <span class="text-xs font-bold">Transferencia</span>
-            </button>
-            <button onclick="document.getElementById('payment-card-form').classList.remove('hidden')" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:border-cyan-400 transition cursor-pointer">
-                <i class="fa-solid fa-credit-card text-purple-400 text-2xl"></i>
-                <span class="text-xs font-bold">Tarjeta</span>
-            </button>
-        </div>
-        <form id="payment-card-form" onsubmit="confirmCardPayment(event)" class="hidden border-t border-slate-800 pt-4 flex flex-col gap-3">
-            <div>
-                <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Número de Tarjeta</label>
-                <input type="text" id="cardNumber" placeholder="1234 5678 1234 5678" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Vencimiento</label>
-                    <input type="text" id="cardExpiry" placeholder="MM/AA" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">CVV</label>
-                    <input type="text" id="cardCvv" placeholder="123" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
-                </div>
-            </div>
-            <div class="flex justify-end gap-2 mt-1">
-                <button type="button" onclick="closePaymentModal()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition cursor-pointer">Cancelar</button>
-                <button type="submit" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-5 py-2 rounded-xl text-xs transition cursor-pointer">Confirmar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ORDERS HISTORY MODAL -->
-<div class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-slate-950/80 px-4" id="ordersHistoryModal">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl relative text-slate-100 flex flex-col gap-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-1">
-            <h3 class="text-base font-black text-white flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-cyan-400"></i> Historial de Mis Pedidos</h3>
-            <button class="text-slate-400 hover:text-white cursor-pointer text-xl" onclick="closeOrdersModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-1" id="orders-modal-content">
-            <!-- Rendered dynamically -->
-        </div>
-    </div>
-</div>
-
 <!-- CHATBOT FLOTANTE -->
 <div class="fixed bottom-6 right-6 z-[9999] text-slate-100 font-sans">
     <button aria-label="Botón del chatbot" onclick="toggleChatbot()" class="w-14 h-14 rounded-full bg-cyan-500 hover:bg-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20 active:scale-95 transition cursor-pointer relative z-[10000]">
@@ -424,7 +473,7 @@ if ('serviceWorker' in navigator) {
         </div>
         <div id="chat-messages" class="flex-grow p-4 flex flex-col gap-3 overflow-y-auto text-[11px] max-h-[350px]">
             <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-2xl text-slate-300">
-                Hola, soy el asistente IA del Ecosistema de Tiendas. ¿En qué puedo ayudarte hoy sobre este producto?
+                Hola, soy el asistente IA del Ecosistema de Tiendas. ¿En qué puedo ayudarte hoy en el checkout?
             </div>
         </div>
         <div class="p-3 border-t border-slate-800 flex gap-2">
@@ -434,60 +483,8 @@ if ('serviceWorker' in navigator) {
     </div>
 </div>
 
-<!-- CART DRAWER -->
-<div class="fixed inset-0 z-[250]" id="cartDrawer" style="display: none !important;">
-    <div class="absolute inset-0 bg-slate-950/60 cursor-pointer" onclick="closeCartDrawerAndGoToBoutique()"></div>
-    <div class="absolute right-0 top-0 h-full w-full max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col justify-between text-slate-100 p-6 transition-transform duration-300">
-        <div>
-            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-6">
-                <h3 class="text-base font-black text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-cyan-400"></i> Tu Carrito de Compras</h3>
-                <button class="text-2xl text-slate-400 hover:text-white cursor-pointer" onclick="closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-4 mb-4 flex flex-col gap-2.5">
-                <div class="flex justify-between items-center text-xs">
-                    <span class="text-slate-400 font-bold">Registro de Entrega: <span id="drawer-delivery-status" class="text-cyan-400 font-bold">Pendiente</span></span>
-                    <button onclick="openDeliveryModal()" class="text-cyan-400 hover:underline font-bold focus:outline-none">(Editar)</button>
-                </div>
-                <div class="flex justify-between items-center text-xs">
-                    <span class="text-slate-400 font-bold">Forma de Pago: <span id="drawer-payment-status" class="text-cyan-400 font-bold">No seleccionada</span></span>
-                    <button onclick="openPaymentModal()" class="text-cyan-400 hover:underline font-bold focus:outline-none">(Editar)</button>
-                </div>
-            </div>
-            <div class="flex flex-col gap-4 overflow-y-auto max-h-[45vh] pr-1" id="drawer-cart-items"></div>
-        </div>
-        <div class="border-t border-slate-800 pt-4 mt-4 flex flex-col gap-4">
-            <div class="flex flex-col gap-2 text-xs">
-                <div class="flex justify-between">
-                    <span class="text-slate-400 font-bold">Productos:</span>
-                    <span class="text-white font-bold" id="drawer-total-qty">0</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-400 font-bold">Subtotal:</span>
-                    <span class="text-white font-bold" id="drawer-subtotal">$0.00 MXN</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-400 font-bold">Envío:</span>
-                    <span class="text-white font-bold" id="drawer-shipping">$0.00 MXN</span>
-                </div>
-                <div class="flex justify-between items-center border-t border-slate-800 pt-2 mt-2">
-                    <span class="text-slate-300 font-black text-sm uppercase">Total:</span>
-                    <span class="text-lg font-black text-cyan-400" id="drawer-total-cost">$0.00 MXN</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <button class="bg-slate-855 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:text-white font-bold py-3 rounded-xl text-xs transition cursor-pointer active:scale-95" onclick="closeCartDrawerAndGoToBoutique()">
-                    <i class="fa-solid fa-arrow-left"></i> Seguir comprando
-                </button>
-                <a class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 rounded-xl text-xs text-center transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95" href="checkout.html" id="drawer-checkout-btn">
-                    Comprar ahora <i class="fa-solid fa-credit-card"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-    // BASE DE DATOS DE IMÁGENES (SI APLICA)
+    // BASE DE DATOS DE IMÁGENES
     
 
     // BASE DE DATOS DE PRODUCTOS DE LA TIENDA LOCAL
@@ -704,11 +701,6 @@ if ('serviceWorker' in navigator) {
         {sku:'BTN-020',nombre:'Chips Chipotle Barcel (100g)',imagen:'assets/img/91fL315hJIL._SL1500_.webp',precio:'34',precio_original:'45',descuento:'25% OFF',existencias:'12',categoria:'botanas-snacks',descripcion:'Producto premium garantizado de la categoría Botanas y Snacks. Disfruta de la mejor calidad, servicio y garantía en nuestro portal.',modelo_caja:'BTN-020',tamano_altavoz:'N/A',caracteristicas:'Garantía oficial del ecosistema, empaque de seguridad y entrega inmediata.'},
     ];
 
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
-
     function getCart() {
         const stored = localStorage.getItem("ecosystem_global_cart");
         return stored ? JSON.parse(stored) : [];
@@ -716,71 +708,137 @@ if ('serviceWorker' in navigator) {
     
     function saveCart(cart) {
         localStorage.setItem("ecosystem_global_cart", JSON.stringify(cart));
-        updateCartBadge();
+        renderCheckout();
+    }
+
+    // STEP 1: DELIVERY HANDLERS
+    window.saveDelivery = function(event) {
+        event.preventDefault();
+        const name = document.getElementById("devName").value;
+        const phone = document.getElementById("devPhone").value;
+        const email = document.getElementById("devEmail").value;
+        const street = document.getElementById("devStreet").value;
+        const colonia = document.getElementById("devColonia").value;
+        const cp = document.getElementById("devCp").value;
+        const city = document.getElementById("devCity").value;
+        
+        const data = { name, phone, email, street, colonia, cp, city };
+        localStorage.setItem("user_delivery_address", JSON.stringify(data));
+        
+        showDeliverySummary();
+        unlockPaymentStep();
+        renderCheckout();
+    };
+    
+    window.editDelivery = function() {
+        document.getElementById("delivery-form").classList.remove("hidden");
+        document.getElementById("delivery-summary").classList.add("hidden");
+        document.getElementById("delivery-edit-btn").classList.add("hidden");
+    };
+    
+    function showDeliverySummary() {
+        const stored = localStorage.getItem("user_delivery_address");
+        if (stored) {
+            const data = JSON.parse(stored);
+            document.getElementById("delivery-form").classList.add("hidden");
+            document.getElementById("delivery-summary").classList.remove("hidden");
+            document.getElementById("delivery-edit-btn").classList.remove("hidden");
+            
+            document.getElementById("sum-name").innerText = data.name;
+            document.getElementById("sum-phone-email").innerText = `📞 ${data.phone}  |  ✉️ ${data.email}`;
+            document.getElementById("sum-address").innerText = `📍 ${data.street}, Col. ${data.colonia}, CP ${data.cp}, ${data.city}`;
+        }
     }
     
-    window.openCartDrawer = function() {
-        const drawer = document.getElementById("cartDrawer");
-        if (drawer) {
-            drawer.style.setProperty("display", "block", "important");
-            drawer.classList.remove("hidden");
-            renderDrawerCart();
+    function unlockPaymentStep() {
+        const stepCard = document.getElementById("step-payment-card");
+        const badge = document.getElementById("step-payment-badge");
+        const options = document.getElementById("payment-options");
+        
+        if (stepCard && badge && options) {
+            stepCard.classList.remove("opacity-60");
+            badge.classList.remove("bg-slate-800", "text-slate-400");
+            badge.classList.add("bg-cyan-500", "text-slate-950");
+            options.classList.remove("hidden");
         }
-    };
-    
-    window.closeCartDrawer = function() {
-        const drawer = document.getElementById("cartDrawer");
-        if (drawer) {
-            drawer.style.setProperty("display", "none", "important");
-            drawer.classList.add("hidden");
-        }
-    };
-    
-    window.toggleCartDrawer = function() {
-        const drawer = document.getElementById("cartDrawer");
-        if (drawer) {
-            const isHidden = drawer.style.display === 'none' || drawer.classList.contains('hidden');
-            if (isHidden) {
-                window.openCartDrawer();
-            } else {
-                window.closeCartDrawer();
-            }
-        }
-    };
-    
-    window.closeCartDrawerAndGoToBoutique = function() {
-        window.closeCartDrawer();
-        window.location.href = "index.html";
-    };
+    }
 
-    window.removeFromCart = function(sku) {
-        let cart = getCart();
-        cart = cart.filter(item => item.sku !== sku);
-        saveCart(cart);
-        renderDrawerCart();
+    // STEP 2: PAYMENT METHOD HANDLERS
+    window.selectPaymentMethod = function(method) {
+        localStorage.setItem("user_payment_method", method);
+        showPaymentSummary();
     };
     
-    window.changeQuantity = function(sku, amount) {
+    window.toggleCardForm = function() {
+        document.getElementById("card-payment-form").classList.remove("hidden");
+    };
+    
+    window.saveCardDetails = function(event) {
+        event.preventDefault();
+        const name = document.getElementById("cardName").value;
+        const num = document.getElementById("cardNum").value;
+        const last4 = num.replace(/\\s/g, '').slice(-4) || "4152";
+        
+        const type = num.startsWith("5") ? "Mastercard" : "Visa";
+        localStorage.setItem("user_payment_method", `${type} (**** ${last4})`);
+        
+        document.getElementById("card-payment-form").classList.add("hidden");
+        showPaymentSummary();
+    };
+    
+    window.editPayment = function() {
+        document.getElementById("payment-options").classList.remove("hidden");
+        document.getElementById("payment-summary").classList.add("hidden");
+        document.getElementById("payment-edit-btn").classList.add("hidden");
+    };
+    
+    function showPaymentSummary() {
+        const method = localStorage.getItem("user_payment_method");
+        if (method) {
+            document.getElementById("payment-options").classList.add("hidden");
+            document.getElementById("payment-summary").classList.remove("hidden");
+            document.getElementById("payment-edit-btn").classList.remove("hidden");
+            
+            document.getElementById("payment-summary").innerHTML = `
+                <div class="flex items-center gap-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                    <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block font-bold">Forma Registrada</span>
+                        <span class="text-white font-bold">${method}</span>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // STEP 3: RENDER CHECKOUT CART
+    window.changeQty = function(sku, amount) {
         let cart = getCart();
         const item = cart.find(i => i.sku === sku);
         if (item) {
-            item.quantity = (item.quantity || 1) + amount;
+            item.quantity += amount;
             if (item.quantity < 0) item.quantity = 0;
             if (item.quantity === 0) {
                 cart = cart.filter(i => i.sku !== sku);
             }
         }
         saveCart(cart);
-        renderDrawerCart();
-        renderProductDetail();
     };
     
-    window.renderDrawerCart = function() {
-        const container = document.getElementById("drawer-cart-items");
-        const totalQtyDisplay = document.getElementById("drawer-total-qty");
-        const subtotalDisplay = document.getElementById("drawer-subtotal");
-        const shippingDisplay = document.getElementById("drawer-shipping");
-        const totalCostDisplay = document.getElementById("drawer-total-cost");
+    window.deleteItem = function(sku) {
+        let cart = getCart();
+        cart = cart.filter(i => i.sku !== sku);
+        saveCart(cart);
+    };
+    
+    window.renderCheckout = function() {
+        const container = document.getElementById("checkout-cart-items");
+        const subtotalDisp = document.getElementById("co-subtotal");
+        const wholesaleRow = document.getElementById("co-wholesale-row");
+        const wholesaleDiscDisp = document.getElementById("co-wholesale-disc");
+        const shippingDisp = document.getElementById("co-shipping");
+        const cashbackRow = document.getElementById("co-cashback-row");
+        const totalDisp = document.getElementById("co-total");
         
         if (!container) return;
         
@@ -788,538 +846,142 @@ if ('serviceWorker' in navigator) {
         container.innerHTML = "";
         
         let subtotal = 0;
-        let totalQty = 0;
+        let totalItemsQty = 0;
         
         cart.forEach(item => {
             const sub = parseFloat(item.precio) * item.quantity;
             subtotal += sub;
-            totalQty += item.quantity;
+            totalItemsQty += item.quantity;
             
-            // Resolve image path safely
-            let imgPath = item.imagen;
-            if (imgPath && imgPath.startsWith('assets/img')) {
-                imgPath = './' + imgPath;
+            let imgUrl = item.imagen;
+            if (imgUrl && imgUrl.startsWith('assets/img')) {
+                imgUrl = './' + imgUrl;
             }
             
-            let minusButtonHtml = `<button onclick="changeQuantity('${item.sku}', -1)" class="w-5 h-5 rounded bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-xs cursor-pointer">-</button>`;
+            let minusButtonHtml = `<button onclick="changeQty('${item.sku}', -1)" class="w-5 h-5 rounded bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-xs cursor-pointer">-</button>`;
             if (item.quantity === 1) {
-                minusButtonHtml = `<button onclick="changeQuantity('${item.sku}', -1)" class="w-5 h-5 rounded bg-red-650 text-white hover:bg-red-600 transition flex items-center justify-center text-[10px] cursor-pointer" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button>`;
+                minusButtonHtml = `<button onclick="changeQty('${item.sku}', -1)" class="w-5 h-5 rounded bg-red-655 text-white hover:bg-red-600 transition flex items-center justify-center text-[10px] cursor-pointer" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button>`;
             }
             
             const div = document.createElement("div");
-            div.className = "flex items-center justify-between gap-3 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800";
+            div.className = "flex items-center justify-between gap-3 bg-slate-950/40 p-2.5 rounded-xl border border-slate-850";
             div.innerHTML = `
-                <div class="flex items-center gap-2 min-w-0 flex-1">
-                    <img src="${imgPath}" class="w-8 h-8 object-contain bg-white rounded p-0.5 shrink-0" />
-                    <span class="text-white font-semibold truncate flex-1">${item.nombre}</span>
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                    <img src="${imgUrl}" class="w-8 h-8 object-contain bg-white rounded p-0.5 shrink-0" />
+                    <div class="min-w-0 flex-1">
+                        <span class="text-white font-bold block truncate text-xs">${item.nombre}</span>
+                        <span class="text-[9px] font-mono text-slate-500 uppercase">${item.sku}</span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
+                <div class="flex items-center gap-2.5 shrink-0">
                     <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded p-0.5">
                         ${minusButtonHtml}
                         <span class="text-white font-black text-xs w-4 text-center">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.sku}', 1)" class="w-5 h-5 rounded bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-xs cursor-pointer">+</button>
+                        <button onclick="changeQty('${item.sku}', 1)" class="w-5 h-5 rounded bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-xs cursor-pointer">+</button>
                     </div>
                     <span class="text-cyan-400 font-bold min-w-[70px] text-right">$${sub.toFixed(2)} MXN</span>
-                    <button onclick="removeFromCart('${item.sku}')" class="text-slate-400 hover:text-red-500 text-xs transition cursor-pointer" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="deleteItem('${item.sku}')" class="text-slate-500 hover:text-red-500 text-xs cursor-pointer shrink-0 transition"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             `;
             container.appendChild(div);
         });
         
-        totalQtyDisplay.innerText = totalQty;
-        subtotalDisplay.innerText = `$${subtotal.toFixed(2)} MXN`;
+        subtotalDisp.innerText = `$${subtotal.toFixed(2)} MXN`;
         
-        const shipping = subtotal >= 1500 || subtotal === 0 ? 0 : 49;
-        shippingDisplay.innerText = shipping === 0 ? "GRATIS" : `$${shipping.toFixed(2)} MXN`;
-        totalCostDisplay.innerText = `$${(subtotal + shipping).toFixed(2)} MXN`;
+        // Wholesale check
+        let wholesaleDiscount = 0;
+        if (totalItemsQty >= 10) {
+            wholesaleDiscount = subtotal * 0.15;
+            wholesaleRow.classList.remove("hidden");
+            wholesaleDiscDisp.innerText = `-$${wholesaleDiscount.toFixed(2)} MXN`;
+        } else {
+            wholesaleRow.classList.add("hidden");
+        }
         
-        updateAddressDisplay();
-        updatePaymentDisplay();
+        // Shipping check
+        const baseSub = subtotal - wholesaleDiscount;
+        const shippingFee = (baseSub >= 1500 || subtotal === 0) ? 0 : 49;
+        shippingDisp.innerText = shippingFee === 0 ? "GRATIS" : `$${shippingFee.toFixed(2)} MXN`;
+        
+        // Cashback check
+        const storedAddress = localStorage.getItem("user_delivery_address");
+        let hasRegister = false;
+        if (storedAddress) {
+            const addr = JSON.parse(storedAddress);
+            if (addr.email && addr.phone) {
+                hasRegister = true;
+            }
+        }
+        
+        let cashbackVal = 0;
+        if (hasRegister) {
+            cashbackVal = baseSub * 0.05;
+            cashbackRow.innerHTML = `
+                <div class="flex justify-between text-emerald-400 font-black">
+                    <span>Cashback 5% Aplicado:</span>
+                    <span>-$${cashbackVal.toFixed(2)} MXN</span>
+                </div>
+                <span class="text-[9px] text-emerald-500 font-semibold leading-tight">✓ Recompensa activa. Saldo descontado del total a pagar.</span>
+            `;
+        } else {
+            cashbackRow.innerHTML = `
+                <div class="flex justify-between text-slate-500 font-bold">
+                    <span>Cashback Acumulable:</span>
+                    <span>$0.00 MXN</span>
+                </div>
+                <span class="text-[9px] text-amber-500 font-semibold leading-tight">⚠️ Sin registro no aplica cashback. Completa el Paso 1 para activar tu 5%.</span>
+            `;
+        }
+        
+        const totalCost = Math.max(0, baseSub - cashbackVal + shippingFee);
+        totalDisp.innerText = `$${totalCost.toFixed(2)} MXN`;
     };
-    
-    function updateCartBadge() {
+
+    // FINALIZE PURCHASE
+    window.finalizePurchase = function() {
+        const address = localStorage.getItem("user_delivery_address");
+        const method = localStorage.getItem("user_payment_method");
         const cart = getCart();
-        let totalQty = 0;
-        cart.forEach(item => totalQty += (item.quantity || 1));
-        const badge = document.getElementById("cart-badge-count");
-        if (badge) {
-            badge.innerText = totalQty;
-            if (totalQty === 0) {
-                badge.classList.add("hidden");
-            } else {
-                badge.classList.remove("hidden");
-            }
-        }
-    }
-
-    window.openDeliveryModal = function() {
-        const modal = document.getElementById("deliveryModal");
-        if (modal) modal.classList.remove("hidden");
-    };
-    
-    window.closeDeliveryModal = function() {
-        const modal = document.getElementById("deliveryModal");
-        if (modal) modal.classList.add("hidden");
-    };
-    
-    window.saveDeliveryAddress = function(event) {
-        event.preventDefault();
-        const name = document.getElementById("deliveryName").value;
-        const phone = document.getElementById("deliveryPhone").value;
-        const email = document.getElementById("deliveryEmail").value;
-        const street = document.getElementById("deliveryStreet").value;
-        const colonia = document.getElementById("deliveryColonia").value;
-        const city = document.getElementById("deliveryCity").value;
         
-        const data = { name, phone, email, street, colonia, city };
-        localStorage.setItem("user_delivery_address", JSON.stringify(data));
-        closeDeliveryModal();
-        renderDrawerCart();
-        renderProductDetail();
-    };
-    
-    function updateAddressDisplay() {
-        const status = document.getElementById("drawer-delivery-status");
-        const stored = localStorage.getItem("user_delivery_address");
-        if (status) {
-            if (stored) {
-                const data = JSON.parse(stored);
-                status.innerText = "Registrado (" + data.name + ")";
-                status.className = "text-emerald-400 font-bold";
-            } else {
-                status.innerText = "Pendiente";
-                status.className = "text-cyan-400 font-bold";
-            }
+        if (cart.length === 0) {
+            alert("⚠️ El carrito de compras está vacío.");
+            return;
         }
-    }
-
-    window.openPaymentModal = function() {
-        const modal = document.getElementById("paymentMethodModal");
-        if (modal) modal.classList.remove("hidden");
-    };
-    
-    window.closePaymentModal = function() {
-        const modal = document.getElementById("paymentMethodModal");
-        if (modal) modal.classList.add("hidden");
-        document.getElementById("payment-card-form").classList.add("hidden");
-    };
-    
-    window.savePaymentMethod = function(method) {
-        localStorage.setItem("user_payment_method", method);
-        closePaymentModal();
-        renderDrawerCart();
-    };
-    
-    window.confirmCardPayment = function(event) {
-        event.preventDefault();
-        const cardNum = document.getElementById("cardNumber").value;
-        if (cardNum) {
-            const last4 = cardNum.replace(/\\s/g, '').slice(-4);
-            localStorage.setItem("user_payment_method", "Tarjeta (**** " + last4 + ")");
-            closePaymentModal();
-            renderDrawerCart();
+        if (!address) {
+            alert("⚠️ Registra el Domicilio de Entrega (Paso 1) antes de continuar.");
+            return;
         }
-    };
-    
-    function updatePaymentDisplay() {
-        const status = document.getElementById("drawer-payment-status");
-        const stored = localStorage.getItem("user_payment_method");
-        if (status) {
-            if (stored) {
-                status.innerText = stored;
-                status.className = "text-emerald-400 font-bold";
-            } else {
-                status.innerText = "No seleccionada";
-                status.className = "text-cyan-400 font-bold";
-            }
+        if (!method) {
+            alert("⚠️ Selecciona un Método de Pago (Paso 2) antes de continuar.");
+            return;
         }
-    }
-
-    let reorderItems = [];
-    window.openOrdersModal = function() {
-        const modal = document.getElementById("ordersHistoryModal");
-        if (modal) {
-            modal.classList.remove("hidden");
-            renderOrdersModal();
-        }
-    };
-    
-    window.closeOrdersModal = function() {
-        const modal = document.getElementById("ordersHistoryModal");
-        if (modal) modal.classList.add("hidden");
-    };
-    
-    window.renderOrdersModal = function() {
-        const content = document.getElementById("orders-modal-content");
-        if (!content) return;
+        
+        // Create order history item
+        const orderId = "EC-" + Math.floor(1000 + Math.random() * 9000);
+        const dateStr = "Hoy, " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        const newOrder = {
+            orderId: orderId,
+            date: dateStr,
+            status: "Preparando",
+            deliveryTime: "Listo para entrega en 30 min",
+            items: cart
+        };
         
         let history = [];
         try {
             const stored = localStorage.getItem("user_purchases_history");
-            if (stored) {
-                history = JSON.parse(stored);
-            }
+            if (stored) history = JSON.parse(stored);
         } catch(e) {}
         
-        if (history.length === 0) {
-            const simItems = [
-                { sku: productCatalog[0].sku, nombre: productCatalog[0].nombre, precio: productCatalog[0].precio, quantity: 1, imagen: productCatalog[0].imagen }
-            ];
-            history = [{
-                orderId: 'PC-2489',
-                date: 'Hace 2 días',
-                status: 'Entregado',
-                deliveryTime: 'Entregado en 25 min',
-                items: simItems
-            }];
-        }
+        history.unshift(newOrder);
+        localStorage.setItem("user_purchases_history", JSON.stringify(history));
         
-        if (reorderItems.length === 0 && history.length > 0) {
-            reorderItems = JSON.parse(JSON.stringify(history[0].items));
-        }
+        // Clear cart
+        localStorage.setItem("ecosystem_global_cart", JSON.stringify([]));
         
-        content.innerHTML = "";
-        
-        history.forEach(order => {
-            const orderDiv = document.createElement("div");
-            orderDiv.className = "bg-slate-950/50 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4";
-            
-            let statusClass = "text-green-400 bg-green-500/10 border-green-500/20";
-            if (order.status === "Preparando") statusClass = "text-amber-400 bg-amber-500/10 border-amber-500/20";
-            
-            let itemsHtml = "";
-            order.items.forEach(item => {
-                let imgUrl = item.imagen;
-                if (imgUrl && !imgUrl.startsWith('http') && !imgUrl.startsWith('https')) {
-                    imgUrl = './' + imgUrl;
-                }
-                itemsHtml += `
-                    <div class="flex items-center gap-3 text-xs">
-                        <img src="${imgUrl}" class="w-8 h-8 object-contain bg-white rounded p-0.5 shrink-0" />
-                        <span class="text-white font-bold flex-1 truncate">${item.nombre}</span>
-                        <span class="text-slate-400 shrink-0">Cant: ${item.quantity}</span>
-                        <span class="text-amber-500 font-bold shrink-0">$${(parseFloat(item.precio) * item.quantity).toFixed(2)} MXN</span>
-                    </div>
-                `;
-            });
-            
-            let reorderHtml = "";
-            if (reorderItems.length > 0) {
-                let reorderRows = "";
-                let reorderSubtotal = 0;
-                reorderItems.forEach(item => {
-                    const sub = parseFloat(item.precio) * item.quantity;
-                    reorderSubtotal += sub;
-                    let imgUrl = item.imagen;
-                    if (imgUrl && !imgUrl.startsWith('http') && !imgUrl.startsWith('https')) {
-                        imgUrl = './' + imgUrl;
-                    }
-                    
-                    let opacityClass = "";
-                    let trashBtnHtml = "";
-                    if (item.quantity === 0) {
-                        opacityClass = "opacity-40 grayscale text-slate-500 border-red-500/30 bg-red-950/5";
-                        trashBtnHtml = `
-                            <button onclick="deleteHistoricalItem('${item.sku}')" class="text-red-500 hover:text-red-400 text-sm cursor-pointer shrink-0 transition flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/20" title="Eliminar del historial">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        `;
-                    }
-                    
-                    reorderRows += `
-                        <div class="relative flex items-center justify-between gap-3 bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs ${opacityClass}">
-                            <div class="flex items-center gap-2 min-w-0 flex-1">
-                                <img src="${imgUrl}" class="w-8 h-8 object-contain bg-white rounded p-0.5 shrink-0" />
-                                <span class="text-white font-semibold truncate flex-1">${item.nombre}</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 shrink-0">
-                                ${trashBtnHtml}
-                                <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-lg p-0.5">
-                                    <button onclick="changeReorderQty('${item.sku}', -1)" class="w-8 h-8 rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-sm cursor-pointer select-none">-</button>
-                                    <span class="text-white font-black text-sm w-5 text-center">${item.quantity}</span>
-                                    <button onclick="changeReorderQty('${item.sku}', 1)" class="w-8 h-8 rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition flex items-center justify-center font-bold text-sm cursor-pointer select-none">+</button>
-                                </div>
-                                <span class="text-amber-500 font-bold min-w-[75px] text-right">$${sub.toFixed(2)} MXN</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                reorderHtml = `
-                    <div class="border-t border-slate-800 pt-4 mt-2 flex flex-col gap-3">
-                        <h4 class="text-xs font-black text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-arrows-rotate"></i> Volver a comprar (Ajustar cantidades):</h4>
-                        <div class="flex flex-col gap-2">
-                            ${reorderRows || '<div class="text-center py-4 text-slate-500 text-xs">No hay productos seleccionados.</div>'}
-                        </div>
-                        ${reorderItems.length > 0 ? `
-                        <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-900 border border-slate-800 rounded-xl p-3.5 mt-1 gap-3">
-                            <div class="flex items-center gap-2">
-                                <button onclick="closeOrdersModal(); window.location.href='index.html';" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5 active:scale-95">
-                                    <i class="fa-solid fa-arrow-left"></i> Seguir comprando
-                                </button>
-                                <button onclick="addReorderToCart()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs transition active:scale-95 cursor-pointer flex items-center gap-1.5">
-                                    Agregar al Carrito <i class="fa-solid fa-cart-plus"></i>
-                                </button>
-                            </div>
-                            <div class="flex flex-col text-right">
-                                <span class="text-[10px] text-slate-400 font-bold uppercase">Total del Pedido:</span>
-                                <span class="text-sm font-black text-cyan-400">$${reorderSubtotal.toFixed(2)} MXN</span>
-                            </div>
-                        </div>
-                        ` : ''}
-                    </div>
-                `;
-            }
-            
-            orderDiv.innerHTML = `
-                <div class="flex justify-between items-start border-b border-slate-800/60 pb-3">
-                    <div class="flex flex-col">
-                        <span class="text-white font-black text-sm">Pedido #${order.orderId}</span>
-                        <span class="text-[10px] text-slate-400 font-semibold">${order.date}</span>
-                    </div>
-                    <div class="flex flex-col items-end gap-1">
-                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusClass}">${order.status}</span>
-                        <span class="text-[10px] text-slate-400 font-semibold">${order.deliveryTime}</span>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-2.5">
-                    ${itemsHtml}
-                </div>
-                ${reorderHtml}
-            `;
-            content.appendChild(orderDiv);
-        });
-    };
-    
-    window.changeReorderQty = function(sku, amount) {
-        const item = reorderItems.find(i => i.sku === sku);
-        if (item) {
-            item.quantity += amount;
-            if (item.quantity < 0) {
-                item.quantity = 0;
-            }
-        }
-        renderOrdersModal();
-    };
-    
-    window.deleteHistoricalItem = function(sku) {
-        reorderItems = reorderItems.filter(i => i.sku !== sku);
-        renderOrdersModal();
-    };
-    
-    window.addReorderToCart = function() {
-        let cart = getCart();
-        reorderItems.forEach(reItem => {
-            if (reItem.quantity > 0) {
-                const existing = cart.find(i => i.sku === reItem.sku);
-                if (existing) {
-                    existing.quantity = (existing.quantity || 1) + reItem.quantity;
-                } else {
-                    cart.push({
-                        sku: reItem.sku,
-                        nombre: reItem.nombre,
-                        precio: reItem.precio,
-                        imagen: reItem.imagen,
-                        quantity: reItem.quantity
-                    });
-                }
-            }
-        });
-        saveCart(cart);
-        closeOrdersModal();
-        window.openCartDrawer();
-    };
-
-    // DYNAMIC 3-COLUMN DETAIL RENDERER
-    window.renderProductDetail = function() {
-        const sku = getQueryParam("sku");
-        const product = productCatalog.find(p => p.sku === sku) || productCatalog[0];
-        const detailRoot = document.getElementById("product-detail-root");
-        
-        if (!detailRoot) return;
-        
-        if (!product) {
-            detailRoot.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 font-bold">Producto no encontrado.</div>`;
-            return;
-        }
-        
-        const priceNum = parseFloat(product.precio);
-        const shippingFee = priceNum >= 1500 ? 0 : 49;
-        const shippingText = shippingFee === 0 ? "GRATIS" : `$${shippingFee.toFixed(2)} MXN`;
-        const shippingSubnotice = shippingFee === 0 ? "¡Califica para Envío Gratis!" : "Envío gratis a partir de $1,500.00 MXN";
-        
-        const wholesaleText = `Precio especial para mayoristas: Obtén 15% de descuento a partir de la pieza 10.`;
-        
-        const storedAddress = localStorage.getItem("user_delivery_address");
-        let cashbackHtml = "";
-        const cashbackAmount = (priceNum * 0.05).toFixed(2);
-        
-        if (storedAddress) {
-            const addr = JSON.parse(storedAddress);
-            if (addr.email && addr.phone) {
-                cashbackHtml = `
-                    <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-3 flex flex-col gap-1 text-[11px] text-slate-200">
-                        <span class="text-emerald-400 font-black flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Cashback del 5% Activo</span>
-                        <span>Se acreditarán <strong class="text-white">$${cashbackAmount} MXN</strong> a tu cuenta de usuario al finalizar la compra.</span>
-                    </div>
-                `;
-            }
-        }
-        
-        if (!cashbackHtml) {
-            cashbackHtml = `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 flex flex-col gap-2 text-[11px] text-slate-400">
-                    <span class="text-amber-500 font-black flex items-center gap-1.5"><i class="fa-solid fa-gift"></i> Desbloquear 5% de Cashback</span>
-                    <span>Obtén <strong class="text-white">$${cashbackAmount} MXN</strong> de saldo de regalo en esta compra. Regístrate gratis o ingresa tus datos en el newsletter para activar el beneficio.</span>
-                    <button onclick="openDeliveryModal()" class="bg-slate-800 hover:bg-slate-750 text-white font-bold py-1.5 rounded-lg text-[10px] transition cursor-pointer text-center">Registrar Cuenta Gratis</button>
-                    <span class="text-[9px] text-slate-500 leading-tight">Nota: Sin registro de correo y teléfono no se genera cashback.</span>
-                </div>
-            `;
-        }
-        
-        let displayImg = product.imagen;
-        if (displayImg && typeof displayImg === 'string' && displayImg.startsWith('assets/img')) {
-            displayImg = './' + displayImg;
-        }
-        
-        detailRoot.innerHTML = `
-            <!-- Columna Izquierda: Visualización de Imagen -->
-            <div class="lg:col-span-5 flex flex-col gap-4">
-                <div class="w-full aspect-[3/4] overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-md flex items-center justify-center p-4">
-                    <img id="main-product-img" loading="lazy" decoding="async" src="${displayImg}" alt="${product.nombre}" class="max-w-full max-h-full object-contain">
-                </div>
-                <div class="flex gap-2 justify-center">
-                    <button onclick="document.getElementById('main-product-img').src='${displayImg}'" class="w-12 h-16 object-contain bg-slate-900 rounded-md border-2 border-cyan-500 cursor-pointer shadow-sm overflow-hidden flex items-center justify-center p-0.5">
-                        <img loading="lazy" decoding="async" src="${displayImg}" class="max-w-full max-h-full object-contain">
-                    </button>
-                    <button onclick="document.getElementById('main-product-img').src='./assets/img/mascota_tigre.webp'" class="w-12 h-16 object-contain bg-slate-900 rounded-md border border-slate-800 cursor-pointer opacity-70 hover:opacity-100 transition overflow-hidden flex items-center justify-center p-0.5">
-                        <img loading="lazy" decoding="async" src="./assets/img/mascota_tigre.webp" class="max-w-full max-h-full object-contain">
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Columna Central: Información y Ficha Técnica -->
-            <div class="lg:col-span-4 flex flex-col gap-5 text-slate-200">
-                <div>
-                    <h2 class="text-xl md:text-2xl font-black text-white leading-tight">${product.nombre}</h2>
-                    <span class="text-xs text-cyan-400 font-bold block mt-1 hover:underline cursor-pointer">Visita la tienda oficial de la marca</span>
-                </div>
-                
-                <div class="flex items-center gap-1.5 text-xs text-amber-500">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <span class="text-slate-400 font-semibold ml-1">(4.9 - 48 valoraciones en la zona)</span>
-                </div>
-
-                <!-- Labor de Venta (Sales Copy) y Precio en Columna Central -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-1.5 text-xs text-slate-300 shadow-sm">
-                    <span class="font-black text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-fire"></i> ¿Por qué elegir este artículo?</span>
-                    <p class="leading-relaxed">Este producto oficial del Ecosistema es el favorito de los clientes por su durabilidad superior, componentes premium y garantía local directa inmediata de fábrica.</p>
-                    <span class="font-bold text-white mt-1">Precio Unitario Promocional: <span class="text-emerald-400 text-sm font-black">$${parseFloat(product.precio).toFixed(2)} MXN</span></span>
-                </div>
-                
-                <!-- Tabla de Especificaciones -->
-                <div class="border-t border-slate-850 pt-4">
-                    <h4 class="text-xs font-black text-white mb-2 uppercase tracking-wider">Ficha Técnica</h4>
-                    <table class="w-full text-xs text-slate-400">
-                        <tbody>
-                            <tr class="border-b border-slate-850"><td class="py-1.5 font-bold w-1/3 text-slate-200">Marca</td><td class="py-1.5 text-slate-400">Ecosistema Local</td></tr>
-                            <tr class="border-b border-slate-850"><td class="py-1.5 font-semibold text-white font-mono">${product.sku}</td></tr>
-                            <tr class="border-b border-slate-850"><td class="py-1.5 font-bold w-1/3 text-slate-200">Categoría</td><td class="py-1.5 text-slate-400">${product.categoria}</td></tr>
-                            <tr class="border-b border-slate-850"><td class="py-1.5 font-bold w-1/3 text-slate-200">Disponibilidad</td><td class="py-1.5 text-slate-400">${product.inventario_tipo || 'En Stock'}</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Acerca de este artículo -->
-                <div class="border-t border-slate-850 pt-4 flex flex-col gap-2">
-                    <h4 class="text-xs font-black text-white uppercase tracking-wider">Descripción del Producto</h4>
-                    <ul class="list-disc list-inside text-xs text-slate-400 flex flex-col gap-1.5 leading-relaxed">
-                        <li>${product.descripcion || 'Artículo premium seleccionado. Máximo rendimiento y calidad garantizada por el Ecosistema oficial.'}</li>
-                        <li>Soporte local y garantía oficial directa en la zona Centro.</li>
-                        <li>Empaque seguro con sellado hermético contra golpes.</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Columna Derecha: Compra, Reglas y Conversión -->
-            <div class="lg:col-span-3 bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col gap-4 text-slate-100 shadow-lg">
-                <div class="flex flex-col gap-1">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Precio Unitario</span>
-                    <span class="text-2xl font-black text-cyan-400">$${parseFloat(product.precio).toFixed(2)} MXN</span>
-                </div>
-                
-                <!-- Envío -->
-                <div class="border-t border-slate-800 pt-3 flex flex-col gap-0.5 text-xs">
-                    <span class="text-slate-400">Entrega Local:</span>
-                    <span class="font-black text-white flex items-center gap-1.5"><i class="fa-solid fa-truck text-emerald-400"></i> ${shippingText}</span>
-                    <span class="text-[9px] text-slate-500 leading-tight">${shippingSubnotice}</span>
-                </div>
-                
-                <!-- Mayoreo -->
-                <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col gap-0.5 text-[11px] text-slate-300">
-                    <span class="text-amber-500 font-bold uppercase text-[9px] tracking-wider">Módulo de Mayoreo</span>
-                    <span>${wholesaleText}</span>
-                </div>
-                
-                <!-- Cashback -->
-                ${cashbackHtml}
-
-                <!-- Consejos y Labores de Venta (Buy Box) -->
-                <div class="bg-cyan-950/40 border border-cyan-850 rounded-xl p-3 text-[10px] text-slate-300 flex flex-col gap-1">
-                    <span class="text-cyan-400 font-bold flex items-center gap-1"><i class="fa-solid fa-lightbulb"></i> Consejo de Ahorro</span>
-                    <span>Agrega más productos a tu pedido y supera los $1,500 MXN para conseguir **Envío Gratis** a domicilio.</span>
-                </div>
-                
-                <!-- Botones de compra -->
-                <div class="flex flex-col gap-2.5 mt-2">
-                    <a href="checkout.html?sku=${product.sku}" class="w-full bg-[#FFD814] hover:bg-[#F7CA00] text-slate-950 font-black py-3 rounded-xl text-xs transition active:scale-95 text-center flex items-center justify-center gap-2 border border-[#FCD200]">
-                        Pagar ahora <i class="fa-solid fa-credit-card text-xs"></i>
-                    </a>
-                    <button onclick="addToCart('${product.sku}')" class="w-full bg-cyan-550 hover:bg-cyan-500 text-slate-950 font-black py-3 rounded-xl text-xs transition active:scale-95 cursor-pointer flex items-center justify-center gap-2">
-                        Agregar al carrito <i class="fa-solid fa-cart-plus text-sm"></i>
-                    </button>
-                    <a href="index.html" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl text-xs transition text-center flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-arrow-left text-xs"></i> Seguir comprando
-                    </a>
-                </div>
-            </div>
-        `;
-    };
-
-    window.addToCart = function(sku) {
-        const product = productCatalog.find(p => p.sku === sku);
-        if (!product) return;
-        
-        let cart = getCart();
-        const existing = cart.find(item => item.sku === sku);
-        if (existing) {
-            existing.quantity = (existing.quantity || 1) + 1;
-        } else {
-            cart.push({
-                sku: product.sku,
-                nombre: product.nombre,
-                precio: product.precio,
-                imagen: product.imagen,
-                quantity: 1
-            });
-        }
-        saveCart(cart);
-        
-        // Show success toast
-        const toast = document.getElementById("cartToast");
-        const details = document.getElementById("cartToastDetails");
-        if (toast && details) {
-            details.innerText = product.nombre;
-            toast.classList.remove("hidden");
-            setTimeout(() => toast.classList.add("hidden"), 3000);
-        }
-        
-        // Open the cart drawer
-        window.openCartDrawer();
+        alert(`🎉 ¡COMPRA COMPLETADA CON ÉXITO!\\n\\nPedido #${orderId} registrado.\\nForma de Pago: ${method}\\n\\nEl repartidor llegará en menos de 30 minutos.`);
+        window.location.href = "index.html";
     };
 
     // CHATBOT LOGIC
@@ -1347,19 +1009,14 @@ if ('serviceWorker' in navigator) {
         messages.scrollTop = messages.scrollHeight;
         
         setTimeout(() => {
-            const sku = getQueryParam("sku");
-            const product = productCatalog.find(p => p.sku === sku) || productCatalog[0];
-            let resp = "Disculpa, no entendí bien tu consulta. ¿Puedes preguntar sobre el precio, envío o stock?";
-            
+            let resp = "Hola, estoy para ayudarte en el proceso de pago. Asegúrate de registrar tu dirección en el Paso 1 para activar el cashback.";
             const low = txt.toLowerCase();
-            if (low.includes("precio") || low.includes("cuánto cuesta") || low.includes("costo")) {
-                resp = `El precio de este producto (${product.nombre}) es de $${parseFloat(product.precio).toFixed(2)} MXN.`;
-            } else if (low.includes("envío") || low.includes("entrega") || low.includes("domicilio")) {
-                resp = `Hacemos entregas locales. El costo de envío es de $49.00 MXN (GRATIS si tu compra supera los $1,500.00 MXN).`;
-            } else if (low.includes("stock") || low.includes("disponibilidad") || low.includes("existencias")) {
-                resp = `Este producto está disponible para envío inmediato. Disponibilidad actual: ${product.inventario_tipo || 'En Stock'}.`;
-            } else if (low.includes("cashback") || low.includes("recompensa")) {
-                resp = `Ofrecemos un 5% de Cashback ($${(parseFloat(product.precio) * 0.05).toFixed(2)} MXN de regalo) en esta compra, únicamente si registras tu correo y teléfono.`;
+            if (low.includes("envio") || low.includes("entrega") || low.includes("costo")) {
+                resp = "El costo de envío local es de $49.00 MXN. ¡Consigues Envío GRATIS si tu compra supera los $1,500.00 MXN!";
+            } else if (low.includes("cashback") || low.includes("recompensa") || low.includes("descuento")) {
+                resp = "Ofrecemos un 5% de cashback sobre el total de tu compra, descontándose de inmediato si tienes registrada tu dirección, teléfono y correo.";
+            } else if (low.includes("mayoreo") || low.includes("mayorista")) {
+                resp = "¡Sí! Si compras 10 o más artículos en total, obtendrás un descuento del 15% automático en tu subtotal.";
             }
             
             const bDiv = document.createElement("div");
@@ -1371,19 +1028,15 @@ if ('serviceWorker' in navigator) {
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-        updateCartBadge();
-        renderProductDetail();
+        showDeliverySummary();
+        const address = localStorage.getItem("user_delivery_address");
+        if (address) {
+            unlockPaymentStep();
+            showPaymentSummary();
+        }
+        renderCheckout();
     });
 </script>
-
-<!-- CART ADDED SUCCESS TOAST -->
-<div id="cartToast" class="fixed top-6 right-6 z-[9999] hidden bg-slate-900 border border-slate-800 text-white rounded-2xl p-4 shadow-2xl flex items-center gap-3 max-w-sm w-full text-center">
-    <i class="fa-solid fa-circle-check text-green-500 text-2xl animate-bounce"></i>
-    <div class="flex flex-col text-left">
-        <span class="text-xs font-black">¡Se ha agregado al carrito!</span>
-        <span class="text-[10px] text-slate-400 font-semibold" id="cartToastDetails"></span>
-    </div>
-</div>
 
 </body>
 </html>
