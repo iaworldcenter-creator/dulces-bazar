@@ -2,7 +2,8 @@
 
 <html lang="es">
 <head>
-<link rel="preload" as="image" href="assets/img/video-1786211754680_thumb.webp?v=1.1.0" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp" fetchpriority="high">
+
     <meta name="google-site-verification" content="BwSy5nNuFFrHJUtxe189nJtPxM4h5QY-SxK1V8wqYDE" />
     <script>
 // Global Error & Promise Rejection Guard (Safe Headless & Mobile Execution)
@@ -20,7 +21,7 @@ window.addEventListener('unhandledrejection', function(e) {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
+    setTimeout(() => { navigator.serviceWorker.register('./sw.js')
       .then(reg => {
         console.log('Service Worker registered successfully');
         reg.onupdatefound = () => {
@@ -169,7 +170,7 @@ if ('serviceWorker' in navigator) {
     
     <noscript></noscript>
 
-<link as="image" href="assets/img/carrusel-cabecera/foto3.webp" rel="preload"/>
+
 <style>
         @media (max-width: 768px) {
             video { display: none !important; }
@@ -494,7 +495,7 @@ if ('serviceWorker' in navigator) {
 <div class="relative overflow-hidden w-full h-[380px] md:h-[600px] order-1 md:order-2 bg-slate-950 border-r border-slate-800/40">
 <!-- Slide 1: Dulces Tradicionales -->
 <div class="bazar-center-slide absolute inset-0 w-full h-full opacity-100 z-10 transition-opacity duration-700 ease-in-out group">
-<img alt="Surtido de dulces tradicionales mexicanos y chocolates de dulcería" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" loading="eager" src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp"/>
+<img alt="Surtido de dulces tradicionales mexicanos y chocolates de dulcería" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" fetchpriority="high" decoding="async" width="800" height="360" src="assets/img/whats-the-most-popular-mexican-candy-heres-our-top-6.webp"/>
 <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-center items-center text-center p-6 md:p-12 text-white">
 <span class="text-blue-400 font-mono text-xs uppercase font-bold tracking-widest mb-3">Variedad Tradicional</span>
 <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 max-w-2xl drop-shadow-md leading-tight">Dulces &amp; Antojitos Mexicanos</h2>
